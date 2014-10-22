@@ -9,8 +9,8 @@
 #import "SampleAdTableTableViewController.h"
 #import "AdInjector.h"
 
-#define AD_COUNT 2
-#define ITEM_COUNT 8
+#define AD_COUNT 25
+#define ITEM_COUNT 100
 
 @interface SampleAdTableTableViewController ()
 
@@ -37,7 +37,7 @@
     // to be shown in the table view
     for(int i=0; i<AD_COUNT; i++){
         [self.injector injectAd:@"http://media.mobworkz.com/adserver/seamless-300x250/"
-                        atIndex:(i*4)
+                        atIndex:(i*5)
                         withTrackingUrl:@"http://tracker.seamlessapi.com/track/imp/huseyinGuler"];
     }
 }

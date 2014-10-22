@@ -69,7 +69,6 @@
 }
 
 //method to check if 50% of the row frame is visible on the table view
-
 -(BOOL)checkIfPartiallyVisible:(NSIndexPath *)indexPath
 {
     CGRect cellFrame = [self.adTable rectForRowAtIndexPath:indexPath];
@@ -77,7 +76,7 @@
         //[self.adTable scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
         return NO;
     }
-    else if(cellFrame.origin.y+cellFrame.size.height > (self.adTable.contentOffset.y + self.adTable.frame.size.height) - (self.adTable.contentInset.top-self.adTable.contentInset.bottom)){ // the row is below visible rect
+    else if(cellFrame.origin.y + (cellFrame.size.height/2) > (self.adTable.contentOffset.y + self.adTable.frame.size.height) - (self.adTable.contentInset.top-self.adTable.contentInset.bottom)){ // the row is below visible rect
         //[self.adTable scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
         return NO;
     }
@@ -97,6 +96,8 @@
     if ([self indexCheck:indexPath.row]) {
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         
+        
+        //need more time to finish showing add with the given content
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
         [request setURL:[NSURL URLWithString:[self.adUrls objectForKey:[NSNumber numberWithLong:indexPath.row]]]];
         [request setHTTPMethod:@"GET"];
@@ -106,7 +107,7 @@
          {
              if ([POSTReply length] > 0){
                  NSString *theReply = [[NSString alloc] initWithBytes:[POSTReply bytes] length:[POSTReply length] encoding: NSUTF8StringEncoding];
-                 NSLog(@"Reply: %@", theReply);
+                 //NSLog(@"Reply: %@", theReply);
                  
                  NSData *data = [theReply dataUsingEncoding:NSUnicodeStringEncoding];
                  if(error == nil){
