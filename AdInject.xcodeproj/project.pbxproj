@@ -7,37 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C010D59919F7C2B500C0C092 /* AdInjector.m in Sources */ = {isa = PBXBuildFile; fileRef = C010D59819F7C2B500C0C092 /* AdInjector.m */; };
+		C010D59C19F7C57F00C0C092 /* SampleAdTableTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C010D59B19F7C57F00C0C092 /* SampleAdTableTableViewController.m */; };
 		C0CA759219F7AD47003B8B06 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CA759119F7AD47003B8B06 /* main.m */; };
 		C0CA759519F7AD47003B8B06 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CA759419F7AD47003B8B06 /* AppDelegate.m */; };
-		C0CA759819F7AD47003B8B06 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CA759719F7AD47003B8B06 /* ViewController.m */; };
 		C0CA759B19F7AD47003B8B06 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0CA759919F7AD47003B8B06 /* Main.storyboard */; };
 		C0CA759D19F7AD47003B8B06 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0CA759C19F7AD47003B8B06 /* Images.xcassets */; };
-		C0CA75AC19F7AD47003B8B06 /* AdInjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CA75AB19F7AD47003B8B06 /* AdInjectTests.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		C0CA75A619F7AD47003B8B06 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C0CA758419F7AD47003B8B06 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C0CA758B19F7AD47003B8B06;
-			remoteInfo = AdInject;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
+		C010D59719F7C2B500C0C092 /* AdInjector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdInjector.h; sourceTree = "<group>"; };
+		C010D59819F7C2B500C0C092 /* AdInjector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdInjector.m; sourceTree = "<group>"; };
+		C010D59A19F7C57F00C0C092 /* SampleAdTableTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleAdTableTableViewController.h; sourceTree = "<group>"; };
+		C010D59B19F7C57F00C0C092 /* SampleAdTableTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleAdTableTableViewController.m; sourceTree = "<group>"; };
 		C0CA758C19F7AD47003B8B06 /* AdInject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdInject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0CA759019F7AD47003B8B06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0CA759119F7AD47003B8B06 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C0CA759319F7AD47003B8B06 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C0CA759419F7AD47003B8B06 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		C0CA759619F7AD47003B8B06 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		C0CA759719F7AD47003B8B06 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		C0CA759A19F7AD47003B8B06 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C0CA759C19F7AD47003B8B06 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		C0CA75A519F7AD47003B8B06 /* AdInjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AdInjectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C0CA75AA19F7AD47003B8B06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C0CA75AB19F7AD47003B8B06 /* AdInjectTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdInjectTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,21 +37,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C0CA75A219F7AD47003B8B06 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C010D58F19F7C16C00C0C092 /* AdInjectLibrary */ = {
+			isa = PBXGroup;
+			children = (
+				C010D59719F7C2B500C0C092 /* AdInjector.h */,
+				C010D59819F7C2B500C0C092 /* AdInjector.m */,
+			);
+			name = AdInjectLibrary;
+			sourceTree = "<group>";
+		};
 		C0CA758319F7AD47003B8B06 = {
 			isa = PBXGroup;
 			children = (
+				C010D58F19F7C16C00C0C092 /* AdInjectLibrary */,
 				C0CA758E19F7AD47003B8B06 /* AdInject */,
-				C0CA75A819F7AD47003B8B06 /* AdInjectTests */,
 				C0CA758D19F7AD47003B8B06 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -71,7 +62,6 @@
 			isa = PBXGroup;
 			children = (
 				C0CA758C19F7AD47003B8B06 /* AdInject.app */,
-				C0CA75A519F7AD47003B8B06 /* AdInjectTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -81,8 +71,8 @@
 			children = (
 				C0CA759319F7AD47003B8B06 /* AppDelegate.h */,
 				C0CA759419F7AD47003B8B06 /* AppDelegate.m */,
-				C0CA759619F7AD47003B8B06 /* ViewController.h */,
-				C0CA759719F7AD47003B8B06 /* ViewController.m */,
+				C010D59A19F7C57F00C0C092 /* SampleAdTableTableViewController.h */,
+				C010D59B19F7C57F00C0C092 /* SampleAdTableTableViewController.m */,
 				C0CA759919F7AD47003B8B06 /* Main.storyboard */,
 				C0CA759C19F7AD47003B8B06 /* Images.xcassets */,
 				C0CA758F19F7AD47003B8B06 /* Supporting Files */,
@@ -95,23 +85,6 @@
 			children = (
 				C0CA759019F7AD47003B8B06 /* Info.plist */,
 				C0CA759119F7AD47003B8B06 /* main.m */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		C0CA75A819F7AD47003B8B06 /* AdInjectTests */ = {
-			isa = PBXGroup;
-			children = (
-				C0CA75AB19F7AD47003B8B06 /* AdInjectTests.m */,
-				C0CA75A919F7AD47003B8B06 /* Supporting Files */,
-			);
-			path = AdInjectTests;
-			sourceTree = "<group>";
-		};
-		C0CA75A919F7AD47003B8B06 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				C0CA75AA19F7AD47003B8B06 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -136,24 +109,6 @@
 			productReference = C0CA758C19F7AD47003B8B06 /* AdInject.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C0CA75A419F7AD47003B8B06 /* AdInjectTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C0CA75B219F7AD47003B8B06 /* Build configuration list for PBXNativeTarget "AdInjectTests" */;
-			buildPhases = (
-				C0CA75A119F7AD47003B8B06 /* Sources */,
-				C0CA75A219F7AD47003B8B06 /* Frameworks */,
-				C0CA75A319F7AD47003B8B06 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				C0CA75A719F7AD47003B8B06 /* PBXTargetDependency */,
-			);
-			name = AdInjectTests;
-			productName = AdInjectTests;
-			productReference = C0CA75A519F7AD47003B8B06 /* AdInjectTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -165,10 +120,6 @@
 				TargetAttributes = {
 					C0CA758B19F7AD47003B8B06 = {
 						CreatedOnToolsVersion = 6.0.1;
-					};
-					C0CA75A419F7AD47003B8B06 = {
-						CreatedOnToolsVersion = 6.0.1;
-						TestTargetID = C0CA758B19F7AD47003B8B06;
 					};
 				};
 			};
@@ -186,7 +137,6 @@
 			projectRoot = "";
 			targets = (
 				C0CA758B19F7AD47003B8B06 /* AdInject */,
-				C0CA75A419F7AD47003B8B06 /* AdInjectTests */,
 			);
 		};
 /* End PBXProject section */
@@ -201,13 +151,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C0CA75A319F7AD47003B8B06 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -215,29 +158,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0CA759819F7AD47003B8B06 /* ViewController.m in Sources */,
+				C010D59C19F7C57F00C0C092 /* SampleAdTableTableViewController.m in Sources */,
 				C0CA759519F7AD47003B8B06 /* AppDelegate.m in Sources */,
+				C010D59919F7C2B500C0C092 /* AdInjector.m in Sources */,
 				C0CA759219F7AD47003B8B06 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C0CA75A119F7AD47003B8B06 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C0CA75AC19F7AD47003B8B06 /* AdInjectTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		C0CA75A719F7AD47003B8B06 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C0CA758B19F7AD47003B8B06 /* AdInject */;
-			targetProxy = C0CA75A619F7AD47003B8B06 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C0CA759919F7AD47003B8B06 /* Main.storyboard */ = {
@@ -347,40 +275,6 @@
 			};
 			name = Release;
 		};
-		C0CA75B319F7AD47003B8B06 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = AdInjectTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AdInject.app/AdInject";
-			};
-			name = Debug;
-		};
-		C0CA75B419F7AD47003B8B06 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = AdInjectTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AdInject.app/AdInject";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -400,14 +294,7 @@
 				C0CA75B119F7AD47003B8B06 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-		};
-		C0CA75B219F7AD47003B8B06 /* Build configuration list for PBXNativeTarget "AdInjectTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C0CA75B319F7AD47003B8B06 /* Debug */,
-				C0CA75B419F7AD47003B8B06 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
