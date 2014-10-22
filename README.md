@@ -4,6 +4,10 @@ AdInject
 The project includes the AdInjectLibrary and a sample example to show 
 how to use the library to inject ads into your existing table views.
 
+You just need to download the whole package and run the project within the package.
+"AdInjector.h" and "AdInjector.m" are essentially the library files. The rest belongs
+to the sample project.
+
 The library (especially ad tracking) is not fully implemented due to limited time.
 And also showing the ad in a UIWebView cause the app to exceed given CPU limitations
 so the image and the url within the rich media is tried to be taken by using async 
