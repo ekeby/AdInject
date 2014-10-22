@@ -12,7 +12,6 @@
 		C0CA759819F7AD47003B8B06 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CA759719F7AD47003B8B06 /* ViewController.m */; };
 		C0CA759B19F7AD47003B8B06 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0CA759919F7AD47003B8B06 /* Main.storyboard */; };
 		C0CA759D19F7AD47003B8B06 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0CA759C19F7AD47003B8B06 /* Images.xcassets */; };
-		C0CA75A019F7AD47003B8B06 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0CA759E19F7AD47003B8B06 /* LaunchScreen.xib */; };
 		C0CA75AC19F7AD47003B8B06 /* AdInjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CA75AB19F7AD47003B8B06 /* AdInjectTests.m */; };
 /* End PBXBuildFile section */
 
@@ -36,7 +35,6 @@
 		C0CA759719F7AD47003B8B06 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		C0CA759A19F7AD47003B8B06 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C0CA759C19F7AD47003B8B06 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		C0CA759F19F7AD47003B8B06 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		C0CA75A519F7AD47003B8B06 /* AdInjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AdInjectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0CA75AA19F7AD47003B8B06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0CA75AB19F7AD47003B8B06 /* AdInjectTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdInjectTests.m; sourceTree = "<group>"; };
@@ -87,7 +85,6 @@
 				C0CA759719F7AD47003B8B06 /* ViewController.m */,
 				C0CA759919F7AD47003B8B06 /* Main.storyboard */,
 				C0CA759C19F7AD47003B8B06 /* Images.xcassets */,
-				C0CA759E19F7AD47003B8B06 /* LaunchScreen.xib */,
 				C0CA758F19F7AD47003B8B06 /* Supporting Files */,
 			);
 			path = AdInject;
@@ -200,7 +197,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0CA759B19F7AD47003B8B06 /* Main.storyboard in Resources */,
-				C0CA75A019F7AD47003B8B06 /* LaunchScreen.xib in Resources */,
 				C0CA759D19F7AD47003B8B06 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -250,14 +246,6 @@
 				C0CA759A19F7AD47003B8B06 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		C0CA759E19F7AD47003B8B06 /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C0CA759F19F7AD47003B8B06 /* Base */,
-			);
-			name = LaunchScreen.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
