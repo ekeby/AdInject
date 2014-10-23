@@ -26,7 +26,7 @@
     self.tableArray = [[NSMutableArray alloc] init];
     
     // insert normal table items
-    for(int i=0; i<ITEM_COUNT; i++){
+    for(NSUInteger i=0; i<ITEM_COUNT; i++){
         [self.tableArray addObject:[NSString stringWithFormat:@"Hey! I am not an ad!"]];
     }
     
@@ -34,10 +34,9 @@
     self.injector = [AdInjector giveMeAdInjector:self.tableView];
     
     // use AdInjector object to inject ads with the required parameters
-    // to be shown in the table view
-    for(int i=0; i<AD_COUNT; i++){
-        [self.injector injectAd:@"http://media.mobworkz.com/adserver/seamless-300x250/"
-                        atIndex:(i*5)
+    for(NSUInteger i=0; i<AD_COUNT; i++){
+        [self.injector injectAd:@"http://media.mobworkz.com/adserver/seamless-300x250/seamless-300x250.png"
+                        atIndex:[NSNumber numberWithInt:i*5]
                         withTrackingUrl:@"http://tracker.seamlessapi.com/track/imp/huseyinGuler"];
     }
 }
@@ -50,15 +49,17 @@
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
     return [self.tableArray count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     
-    UILabel *itemLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, 300, 200)];
-    itemLabel.text = @"Hey! I am not an ad!";
+    UILabel *itemLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 300, 250)];
+    itemLabel.text = [self.tableArray objectAtIndex:indexPath.row];
+    [itemLabel setTextAlignment:NSTextAlignmentCenter];
+    itemLabel.backgroundColor = [UIColor grayColor];
+    itemLabel.textColor = [UIColor whiteColor];
     [[cell contentView] addSubview:itemLabel];
     
     return cell;

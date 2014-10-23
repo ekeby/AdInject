@@ -13,7 +13,7 @@
 
 // public interface to be provided to the user to create and interact with the AdInject Library
 
-- (void) injectAd:(NSString *)adUrl atIndex:(NSUInteger)index withTrackingUrl:(NSString *) trackingUrl;
+- (void) injectAd:(NSString *)adUrl atIndex:(NSNumber *)index withTrackingUrl:(NSString *) trackingUrl;
 
 + (instancetype) giveMeAdInjector:(UITableView *)tableView;
 

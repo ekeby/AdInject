@@ -7,13 +7,13 @@
 //
 
 #import "AdInjector.h"
+#import "AdRequest.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface AdInjector () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *adTable;
-@property (nonatomic, strong) NSMutableArray *adIndices;
-@property (nonatomic, strong) NSMutableDictionary *adTrackingUrls;
-@property (nonatomic, strong) NSMutableDictionary *adUrls;
+@property (nonatomic, strong) NSMutableArray *adRequests;
 @property (nonatomic, strong) id<UITableViewDataSource> userSource;
 @property (nonatomic, strong) id<UITableViewDelegate> userDelegate;
 
@@ -40,99 +40,105 @@
     tableView.dataSource = self;
     tableView.delegate = self;
     
-    self.adIndices = [[NSMutableArray alloc] init];
-    self.adUrls = [[NSMutableDictionary alloc] init];
-    self.adTrackingUrls = [[NSMutableDictionary alloc] init];
+    self.adRequests = [[NSMutableArray alloc] init];
     
     return self;
 }
 
-- (void)injectAd:(NSString *)adUrl atIndex:(NSUInteger) index withTrackingUrl:(NSString *) trackingUrl
+- (void)injectAd:(NSString *)adUrl atIndex:(NSNumber *) index withTrackingUrl:(NSString *) trackingUrl
 {
-    [self.adIndices addObject:[NSNumber numberWithLong:index]];
-    [self.adUrls setObject:trackingUrl forKey:[NSNumber numberWithLong:index]];
-    [self.adTrackingUrls setObject:trackingUrl forKey:[NSNumber numberWithLong:index]];
+    AdRequest *req = [[AdRequest alloc] init];
+    req.adUrl = adUrl;
+    req.trackingUrl = trackingUrl;
+    req.index = index;
+    req.isDisplayed = NO;
     
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+    [self.adRequests addObject:req];
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[index integerValue] inSection:0];
     [self.adTable insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
--(BOOL)indexCheck:(NSUInteger) index
+-(NSInteger)checkAdIndex:(NSUInteger) index
 {
     // Since we will have only 25 ads brute force search is implemented.
     // In production a better search can be applied (e.g. binary search by sorting the indices)
-    for(int i=0; i<[self.adIndices count]; i++){
-        if([[self.adIndices objectAtIndex:i] integerValue] == index)
-            return YES;
+    // sorting will also ensure the method 'getActualIndex' working for all random ad insertion
+    for(NSInteger i=0; i<[self.adRequests count]; i++){
+        if([[(AdRequest *)[self.adRequests objectAtIndex:i] index] integerValue] == index)
+            return i;
     }
-    return NO;
+    return -1;
 }
 
-//method to check if 50% of the row frame is visible on the table view
--(BOOL)checkIfPartiallyVisible:(NSIndexPath *)indexPath
+-(long)getActualIndex:(NSIndexPath *)indexPath
+{
+    long numberOfPreviousAds = 0;
+    for(NSUInteger i=0; i<[self.adRequests count]; i++){
+        if([[[self.adRequests objectAtIndex:i] index] integerValue]< indexPath.row)
+            numberOfPreviousAds++;
+        else
+            break;
+    }
+    return indexPath.row - numberOfPreviousAds;
+}
+
+//method to check if at least 50% of the row frame is visible
+-(BOOL)checkIfHalfVisible:(NSIndexPath *)indexPath
 {
     CGRect cellFrame = [self.adTable rectForRowAtIndexPath:indexPath];
-    if (cellFrame.origin.y < self.adTable.contentOffset.y) { // the row is above visible rect
-        //[self.adTable scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
-        return NO;
-    }
-    else if(cellFrame.origin.y + (cellFrame.size.height/2) > (self.adTable.contentOffset.y + self.adTable.frame.size.height) - (self.adTable.contentInset.top-self.adTable.contentInset.bottom)){ // the row is below visible rect
-        //[self.adTable scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
-        return NO;
-    }
-    return YES;
+    CGRect halfFrame = CGRectMake(cellFrame.origin.x, cellFrame.origin.y, cellFrame.size.width, cellFrame.size.height/2);
+    CGRect tableFrame = [self.adTable bounds];
+    //NSLog(@"%f %f %f %f", cellFrame.origin.x, cellFrame.origin.y, tableFrame.origin.x, tableFrame.origin.y);
+    return CGRectContainsRect(tableFrame, halfFrame);
 }
 
 #pragma mark - <UITableViewDataSource>
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.userSource tableView:tableView numberOfRowsInSection:section];
+    return ([self.userSource tableView:tableView numberOfRowsInSection:section] + [self.adRequests count]);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // if it's an ad index place the add
-    if ([self indexCheck:indexPath.row]) {
+    NSInteger adIndex = [self checkAdIndex:indexPath.row];
+    
+    //NSLog(@"%f   %f", (self.adTable.contentOffset.y + self.adTable.frame.size.height) - (self.adTable.contentInset.top-self.adTable.contentInset.bottom), cellFrame.origin.y + (cellFrame.size.height/2));
+    
+    
+    if (adIndex >= 0) {
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-        
-        
-        //need more time to finish showing add with the given content
-        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-        [request setURL:[NSURL URLWithString:[self.adUrls objectForKey:[NSNumber numberWithLong:indexPath.row]]]];
-        [request setHTTPMethod:@"GET"];
-        [request setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
-        
-        [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *POSTReply, NSError *error)
-         {
-             if ([POSTReply length] > 0){
-                 NSString *theReply = [[NSString alloc] initWithBytes:[POSTReply bytes] length:[POSTReply length] encoding: NSUTF8StringEncoding];
-                 //NSLog(@"Reply: %@", theReply);
-                 
-                 NSData *data = [theReply dataUsingEncoding:NSUnicodeStringEncoding];
-                 if(error == nil){
-                     UIImageView *adImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 300, 250)];
-                     adImageView.image = [[UIImage alloc] initWithData:data];
-                     [[cell contentView] addSubview:adImageView];
+        UIImageView *adImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, 300, 250)];
+        NSString *imageUrl = [[self.adRequests objectAtIndex:adIndex] adUrl];
+        SDWebImageManager *manager = [SDWebImageManager sharedManager];
+        UIImage *cachedImage = [[manager imageCache] imageFromDiskCacheForKey:imageUrl];
+        if(cachedImage){
+            adImageView.image = cachedImage;
+        }
+        else{
+            [manager downloadWithURL:[NSURL URLWithString:imageUrl]
+                             options:SDWebImageCacheMemoryOnly
+                            progress:nil
+                           completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished)
+             {
+                 if (image)
+                 {
+                     adImageView.image = image;
+                     [[SDImageCache sharedImageCache] storeImage:image forKey:imageUrl];
+                     [self.adTable reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationNone];
                  }
-             }
-         }];
+             }];
+        }
         
-        // not enough time to implement tracking and calling the given url
-        //if([self checkIfPartiallyVisible])
-            // call the given url
-
-        
-        /*UIWebView *adView = [[UIWebView alloc] init];
-        [adView loadRequest:[NSURLRequest requestWithURL:
-                        [NSURL URLWithString:[self.adUrls objectForKey:[NSNumber numberWithLong:indexPath.row]]]]];
-       [[cell contentView] addSubview:adView];
-         */
-        
+        [[cell contentView] addSubview:adImageView];
         return cell;
     }
-    //if it is not an ad index use the original user source data
-    return [self.userSource tableView:tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:(indexPath.row - [self.adIndices count]) inSection:0]];
+    // if it is not an ad index use the original user source data
+    // normally we need to map the indexPath.row with the actual user data source index,
+    // however in the sample app we know that we place 1 ad after 4 non-ad cell
+    return [self.userSource tableView:tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[self getActualIndex:indexPath] inSection:0]];
 }
 
 #pragma mark - <UITableViewDelegate>
@@ -143,9 +149,41 @@
     return tableView.rowHeight;
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)aScrollView {
+    NSArray *indexPaths = self.adTable.indexPathsForVisibleRows;
+    for (NSUInteger i = 0; i < [indexPaths count]; i++){
+        NSInteger adIndex = [self checkAdIndex:[[indexPaths objectAtIndex:i] row]];
+        if (adIndex >= 0) {
+            if(![[self.adRequests objectAtIndex:adIndex] isDisplayed] && [self checkIfHalfVisible:[indexPaths objectAtIndex:i]]){
+                [[self.adRequests objectAtIndex:adIndex] setIsDisplayed:YES];
+                
+                [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL: [NSURL URLWithString:[[self.adRequests objectAtIndex:adIndex] trackingUrl]]]
+                                                   queue:[NSOperationQueue mainQueue]
+                                       completionHandler:^(NSURLResponse *response, NSData *reply, NSError *error){
+                                       
+                }];
+                
+                NSLog(@"Ad with ID: %@ is fired.", [[self.adRequests objectAtIndex:adIndex] index]);
+            }
+        }
+    }
+}
+
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //
+    /*
+    NSUInteger adIndex = [self checkAdIndex:indexPath.row];
+    if(adIndex >= 0){
+        
+    }
+     */
+    
+    /*
+     CGRect cellFrame = [self.adTable rectForRowAtIndexPath:indexPath];
+     CGRect halfFrame = CGRectMake(cellFrame.origin.x, cellFrame.origin.y, cellFrame.size.width, cellFrame.size.height/2);
+     BOOL completelyVisible = CGRectContainsRect(self.adTable.frame, halfFrame);
+     NSLog(@"%d", completelyVisible);
+     */
 }
 
 - (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath

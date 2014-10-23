@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		C010D59919F7C2B500C0C092 /* AdInjector.m in Sources */ = {isa = PBXBuildFile; fileRef = C010D59819F7C2B500C0C092 /* AdInjector.m */; };
 		C010D59C19F7C57F00C0C092 /* SampleAdTableTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C010D59B19F7C57F00C0C092 /* SampleAdTableTableViewController.m */; };
+		C010D59F19F830F900C0C092 /* AdRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C010D59E19F830F900C0C092 /* AdRequest.m */; };
+		C010D5A519F8682000C0C092 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C010D5A419F8682000C0C092 /* SDWebImage.framework */; };
+		C010D5A719F86AB800C0C092 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C010D5A619F86AB800C0C092 /* ImageIO.framework */; };
 		C0CA759219F7AD47003B8B06 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CA759119F7AD47003B8B06 /* main.m */; };
 		C0CA759519F7AD47003B8B06 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CA759419F7AD47003B8B06 /* AppDelegate.m */; };
 		C0CA759B19F7AD47003B8B06 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0CA759919F7AD47003B8B06 /* Main.storyboard */; };
@@ -20,6 +23,10 @@
 		C010D59819F7C2B500C0C092 /* AdInjector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdInjector.m; sourceTree = "<group>"; };
 		C010D59A19F7C57F00C0C092 /* SampleAdTableTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleAdTableTableViewController.h; sourceTree = "<group>"; };
 		C010D59B19F7C57F00C0C092 /* SampleAdTableTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleAdTableTableViewController.m; sourceTree = "<group>"; };
+		C010D59D19F830F900C0C092 /* AdRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdRequest.h; sourceTree = "<group>"; };
+		C010D59E19F830F900C0C092 /* AdRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdRequest.m; sourceTree = "<group>"; };
+		C010D5A419F8682000C0C092 /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDWebImage.framework; path = ../../SDWebImage.framework; sourceTree = "<group>"; };
+		C010D5A619F86AB800C0C092 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		C0CA758C19F7AD47003B8B06 /* AdInject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdInject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0CA759019F7AD47003B8B06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0CA759119F7AD47003B8B06 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -34,6 +41,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C010D5A719F86AB800C0C092 /* ImageIO.framework in Frameworks */,
+				C010D5A519F8682000C0C092 /* SDWebImage.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -43,10 +52,21 @@
 		C010D58F19F7C16C00C0C092 /* AdInjectLibrary */ = {
 			isa = PBXGroup;
 			children = (
+				C010D59D19F830F900C0C092 /* AdRequest.h */,
+				C010D59E19F830F900C0C092 /* AdRequest.m */,
 				C010D59719F7C2B500C0C092 /* AdInjector.h */,
 				C010D59819F7C2B500C0C092 /* AdInjector.m */,
 			);
 			name = AdInjectLibrary;
+			sourceTree = "<group>";
+		};
+		C010D5A319F867EE00C0C092 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C010D5A619F86AB800C0C092 /* ImageIO.framework */,
+				C010D5A419F8682000C0C092 /* SDWebImage.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		C0CA758319F7AD47003B8B06 = {
@@ -54,6 +74,7 @@
 			children = (
 				C010D58F19F7C16C00C0C092 /* AdInjectLibrary */,
 				C0CA758E19F7AD47003B8B06 /* AdInject */,
+				C010D5A319F867EE00C0C092 /* Frameworks */,
 				C0CA758D19F7AD47003B8B06 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -162,6 +183,7 @@
 				C0CA759519F7AD47003B8B06 /* AppDelegate.m in Sources */,
 				C010D59919F7C2B500C0C092 /* AdInjector.m in Sources */,
 				C0CA759219F7AD47003B8B06 /* main.m in Sources */,
+				C010D59F19F830F900C0C092 /* AdRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,8 +281,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/huseyinguler/Desktop,
+				);
 				INFOPLIST_FILE = AdInject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -269,8 +296,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/huseyinguler/Desktop,
+				);
 				INFOPLIST_FILE = AdInject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
