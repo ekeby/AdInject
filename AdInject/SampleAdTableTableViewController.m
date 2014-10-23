@@ -55,7 +55,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     
-    UILabel *itemLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 300, 250)];
+    UILabel *itemLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 250)];
     itemLabel.text = [self.tableArray objectAtIndex:indexPath.row];
     [itemLabel setTextAlignment:NSTextAlignmentCenter];
     itemLabel.backgroundColor = [UIColor grayColor];

@@ -109,6 +109,17 @@
     // if it's an ad index place the add
     if (adIndex >= 0) {
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+        //WKWebView *adView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 250)];
+        UIWebView *adView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 250)];
+        adView.scrollView.bounces = NO;
+        adView.scrollView.scrollEnabled = NO;
+        [[cell contentView] addSubview:adView];
+        [adView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[[self.adRequests objectAtIndex:adIndex] adUrl]] cachePolicy:2 timeoutInterval:20.0]];
+        return cell;
+    }
+    /* deprecated! it was fetching & caching the image in the url for faster and smooth scroll
+    if (adIndex >= 0) {
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         UIImageView *adImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, 300, 250)];
         NSString *imageUrl = [[self.adRequests objectAtIndex:adIndex] adUrl];
         SDWebImageManager *manager = [SDWebImageManager sharedManager];
@@ -136,6 +147,9 @@
         [[cell contentView] addSubview:adImageView];
         return cell;
     }
+     */
+    
+    
     // if it is not an ad index use the original user source data but get the actual index for the user data
     return [self.userSource tableView:tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[self getActualIndex:indexPath] inSection:0]];
 }
@@ -157,13 +171,13 @@
         if (adIndex >= 0) {
             if(![[self.adRequests objectAtIndex:adIndex] isDisplayed] && [self checkIfHalfVisible:[indexPaths objectAtIndex:i]]){
                 [[self.adRequests objectAtIndex:adIndex] setIsDisplayed:YES];
-                
+                /*
                 [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL: [NSURL URLWithString:[[self.adRequests objectAtIndex:adIndex] trackingUrl]]]
                                                    queue:[NSOperationQueue mainQueue]
                                        completionHandler:^(NSURLResponse *response, NSData *reply, NSError *error){
                                        
                 }];
-                
+                */
                 NSLog(@"Ad with ID: %@ is fired.", [[self.adRequests objectAtIndex:adIndex] index]);
             }
         }
