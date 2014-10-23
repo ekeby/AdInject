@@ -10,12 +10,13 @@
 #import "AdRequest.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
-@interface AdInjector () <UITableViewDataSource, UITableViewDelegate>
+@interface AdInjector () <UITableViewDataSource, UITableViewDelegate, UIWebViewDelegate>
 
 @property (nonatomic, strong) UITableView *adTable;
 @property (nonatomic, strong) NSMutableArray *adRequests;
 @property (nonatomic, strong) id<UITableViewDataSource> userSource;
 @property (nonatomic, strong) id<UITableViewDelegate> userDelegate;
+@property (nonatomic) NSInteger numberOfAds;
 
 @end
 
@@ -39,6 +40,7 @@
     tableView.delegate = self;
     
     self.adRequests = [[NSMutableArray alloc] init];
+    self.numberOfAds = 0;
     
     return self;
 }
@@ -51,6 +53,7 @@
     req.trackingUrl = trackingUrl;
     req.index = index;
     req.isDisplayed = NO;
+    req.ID = self.numberOfAds++;
     
     [self.adRequests addObject:req];
     
@@ -106,18 +109,20 @@
 {
     NSInteger adIndex = [self checkAdIndex:indexPath.row];
     
-    // if it's an ad index place the add
+    // if it's an ad index place the ad
     if (adIndex >= 0) {
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         //WKWebView *adView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 250)];
         UIWebView *adView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 250)];
+        adView.delegate = self;
         adView.scrollView.bounces = NO;
         adView.scrollView.scrollEnabled = NO;
         [[cell contentView] addSubview:adView];
+        // Both cachePolicy 0->NSURLRequestUseProtocolCachePolicy and 2->NSURLRequestReturnCacheDataElseLoad is not able to reduce the peak cpu usage
         [adView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[[self.adRequests objectAtIndex:adIndex] adUrl]] cachePolicy:2 timeoutInterval:20.0]];
         return cell;
     }
-    /* deprecated! it was fetching & caching the image in the url for faster and smooth scroll
+    /* !deprecated! it was fetching & caching the image in the seamless url for faster and smooth scroll
     if (adIndex >= 0) {
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         UIImageView *adImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, 300, 250)];
@@ -171,14 +176,14 @@
         if (adIndex >= 0) {
             if(![[self.adRequests objectAtIndex:adIndex] isDisplayed] && [self checkIfHalfVisible:[indexPaths objectAtIndex:i]]){
                 [[self.adRequests objectAtIndex:adIndex] setIsDisplayed:YES];
-                /*
+                
                 [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL: [NSURL URLWithString:[[self.adRequests objectAtIndex:adIndex] trackingUrl]]]
                                                    queue:[NSOperationQueue mainQueue]
                                        completionHandler:^(NSURLResponse *response, NSData *reply, NSError *error){
                                        
                 }];
-                */
-                NSLog(@"Ad with ID: %@ is fired.", [[self.adRequests objectAtIndex:adIndex] index]);
+                
+                NSLog(@"Ad with ID: %ld is fired.", (long)[[self.adRequests objectAtIndex:adIndex] ID]);
             }
         }
     }

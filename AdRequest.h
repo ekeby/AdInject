@@ -13,6 +13,7 @@
 @property (nonatomic, strong) NSString *adUrl;
 @property (nonatomic, strong) NSNumber *index;
 @property (nonatomic, strong) NSString *trackingUrl;
+@property (nonatomic) NSInteger ID;
 @property (nonatomic) BOOL isDisplayed;
 
 @end
