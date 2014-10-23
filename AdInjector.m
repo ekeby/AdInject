@@ -28,9 +28,7 @@
 }
 
 /*
- creates and initializes the AdInjector object with user's table view
- and also initializes dictionaries and arrays to hold indices, adUrls
- and trackingUrls provided by the user
+ creates and initializes the AdInjector object with client's table view
  */
 -(AdInjector *) initAdInjectorWithTable: (UITableView *) tableView
 {
@@ -45,6 +43,7 @@
     return self;
 }
 
+//inject the ad to the table view with the given information
 - (void)injectAd:(NSString *)adUrl atIndex:(NSNumber *) index withTrackingUrl:(NSString *) trackingUrl
 {
     AdRequest *req = [[AdRequest alloc] init];
@@ -59,6 +58,9 @@
     [self.adTable insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
+// check if the given indexPath is among the ad indices
+// if yes, return the index of the "AdRequest" object in the "adRequests" array,
+// if no, return -1
 -(NSInteger)checkAdIndex:(NSUInteger) index
 {
     // Since we will have only 25 ads brute force search is implemented.
@@ -71,6 +73,7 @@
     return -1;
 }
 
+// calculates the actual index of client's data (i.e. actual index of the non-ad cell)
 -(long)getActualIndex:(NSIndexPath *)indexPath
 {
     long numberOfPreviousAds = 0;
@@ -89,7 +92,6 @@
     CGRect cellFrame = [self.adTable rectForRowAtIndexPath:indexPath];
     CGRect halfFrame = CGRectMake(cellFrame.origin.x, cellFrame.origin.y, cellFrame.size.width, cellFrame.size.height/2);
     CGRect tableFrame = [self.adTable bounds];
-    //NSLog(@"%f %f %f %f", cellFrame.origin.x, cellFrame.origin.y, tableFrame.origin.x, tableFrame.origin.y);
     return CGRectContainsRect(tableFrame, halfFrame);
 }
 
@@ -102,18 +104,17 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // if it's an ad index place the add
     NSInteger adIndex = [self checkAdIndex:indexPath.row];
     
-    //NSLog(@"%f   %f", (self.adTable.contentOffset.y + self.adTable.frame.size.height) - (self.adTable.contentInset.top-self.adTable.contentInset.bottom), cellFrame.origin.y + (cellFrame.size.height/2));
-    
-    
+    // if it's an ad index place the add
     if (adIndex >= 0) {
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         UIImageView *adImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, 300, 250)];
         NSString *imageUrl = [[self.adRequests objectAtIndex:adIndex] adUrl];
         SDWebImageManager *manager = [SDWebImageManager sharedManager];
         UIImage *cachedImage = [[manager imageCache] imageFromDiskCacheForKey:imageUrl];
+        
+        //if the ad image with the given url is cached use that one, otherwise fetch the ad and cache it
         if(cachedImage){
             adImageView.image = cachedImage;
         }
@@ -135,9 +136,7 @@
         [[cell contentView] addSubview:adImageView];
         return cell;
     }
-    // if it is not an ad index use the original user source data
-    // normally we need to map the indexPath.row with the actual user data source index,
-    // however in the sample app we know that we place 1 ad after 4 non-ad cell
+    // if it is not an ad index use the original user source data but get the actual index for the user data
     return [self.userSource tableView:tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[self getActualIndex:indexPath] inSection:0]];
 }
 
@@ -149,6 +148,8 @@
     return tableView.rowHeight;
 }
 
+// when the user scroll the table view check if there is any first time ad impression with the given criteria
+// if there is a new ad impression, fire the tracking url for that particular ad
 - (void)scrollViewDidScroll:(UIScrollView *)aScrollView {
     NSArray *indexPaths = self.adTable.indexPathsForVisibleRows;
     for (NSUInteger i = 0; i < [indexPaths count]; i++){
@@ -167,28 +168,6 @@
             }
         }
     }
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    /*
-    NSUInteger adIndex = [self checkAdIndex:indexPath.row];
-    if(adIndex >= 0){
-        
-    }
-     */
-    
-    /*
-     CGRect cellFrame = [self.adTable rectForRowAtIndexPath:indexPath];
-     CGRect halfFrame = CGRectMake(cellFrame.origin.x, cellFrame.origin.y, cellFrame.size.width, cellFrame.size.height/2);
-     BOOL completelyVisible = CGRectContainsRect(self.adTable.frame, halfFrame);
-     NSLog(@"%d", completelyVisible);
-     */
-}
-
-- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
 }
 
 @end

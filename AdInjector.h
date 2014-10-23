@@ -11,7 +11,7 @@
 
 @interface AdInjector : NSObject
 
-// public interface to be provided to the user to create and interact with the AdInject Library
+// public interface for the client to create and interact with the AdInject Library
 
 - (void) injectAd:(NSString *)adUrl atIndex:(NSNumber *)index withTrackingUrl:(NSString *) trackingUrl;
 

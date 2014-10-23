@@ -26,7 +26,7 @@
     self.tableArray = [[NSMutableArray alloc] init];
     
     // insert normal table items
-    for(NSUInteger i=0; i<ITEM_COUNT; i++){
+    for(NSInteger i=0; i<ITEM_COUNT; i++){
         [self.tableArray addObject:[NSString stringWithFormat:@"Hey! I am not an ad!"]];
     }
     
@@ -34,9 +34,9 @@
     self.injector = [AdInjector giveMeAdInjector:self.tableView];
     
     // use AdInjector object to inject ads with the required parameters
-    for(NSUInteger i=0; i<AD_COUNT; i++){
+    for(NSInteger i=0; i<AD_COUNT; i++){
         [self.injector injectAd:@"http://media.mobworkz.com/adserver/seamless-300x250/seamless-300x250.png"
-                        atIndex:[NSNumber numberWithInt:i*5]
+                        atIndex:[NSNumber numberWithLong:i*(ITEM_COUNT/AD_COUNT+1)]
                         withTrackingUrl:@"http://tracker.seamlessapi.com/track/imp/huseyinGuler"];
     }
 }
